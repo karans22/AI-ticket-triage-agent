@@ -1,0 +1,9 @@
+ticket_id,subject,body
+T-1001,Cannot log into my account,"I've tried resetting my password three times but I still can't log in. It says 'invalid credentials' even right after reset."
+T-1002,Double charged this month,"I was charged twice for my subscription this billing cycle. Please refund the duplicate charge as soon as possible, this is urgent."
+T-1003,Feature request: dark mode,"Would be great if the app had a dark mode option. Not urgent, just a nice-to-have."
+T-1004,App crashes on startup,"Every time I open the app on my phone it crashes immediately. This started after the latest update. I use it daily for work so this is blocking me."
+T-1005,Question about invoice format,"Is it possible to get invoices in PDF format instead of the current format? Just curious, no rush."
+T-1006,Unauthorized charge on my card,"I see a charge from your company that I did not authorize. This needs to be investigated and resolved urgently, I may need to contact my bank."
+T-1007,How do I export my data,"I'd like to export all my data before canceling my plan. Can you point me to how to do this?"
+T-1008,Slow performance during peak hours,"The dashboard becomes very slow between 9-10am every day. Not blocking my work but frustrating."
