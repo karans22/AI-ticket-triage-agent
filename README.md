@@ -67,6 +67,14 @@ Incoming Ticket (text)
    This processes `data/sample_tickets.csv` and writes decisions to
    `logs/decisions.csv`.
 
+   **No API key? Try the offline demo** (keyword rules instead of Gemini, just
+   to show the agent loop):
+   ```bash
+   TRIAGE_DEMO=1 python -m src.agent        # Windows PowerShell: $env:TRIAGE_DEMO=1
+   ```
+   If Google renames or retires the default model, set `GEMINI_MODEL` in `.env`
+   (default: `gemini-2.5-flash`).
+
 4. (Optional) Launch the dashboard:
    ```bash
    streamlit run app.py
@@ -96,7 +104,7 @@ The router currently escalates to a human when **any** of the following
 is true:
 - Urgency is classified as `high`
 - Category is `billing` (financial disputes default to human review)
-- The classifier's own confidence signal is low
+- The classifier reports `low` confidence in its own category/urgency
 
 This is intentionally a simple, explainable policy — every escalation
 decision is logged with the reason, which matters more for a first

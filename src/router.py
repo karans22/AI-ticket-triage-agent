@@ -6,7 +6,7 @@ either way. Every decision carries an explicit, logged reason.
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-from src.classifier import TicketClassification
+from src.classifier import MODEL_NAME, TicketClassification, demo_mode
 
 load_dotenv()
 
@@ -28,10 +28,13 @@ def decide_routing(classification: TicketClassification) -> tuple[str, str]:
     'escalate'.
 
     Simple, explainable policy:
+    - low classifier confidence -> escalate (don't auto-reply when unsure)
     - high urgency -> escalate
     - billing category -> escalate (financial disputes need human review)
     - otherwise -> auto-respond
     """
+    if classification.confidence == "low":
+        return "escalate", "Classifier confidence is low, so a human should review."
     if classification.urgency == "high":
         return "escalate", "High urgency tickets are routed to a human for timely handling."
     if classification.category == "billing":
@@ -40,7 +43,11 @@ def decide_routing(classification: TicketClassification) -> tuple[str, str]:
 
 
 def draft_response(subject: str, body: str) -> str:
-    llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.4)
+    if demo_mode():
+        from src.demo import demo_response
+
+        return demo_response(subject, body)
+    llm = ChatGoogleGenerativeAI(model=MODEL_NAME, temperature=0.4)
     prompt = RESPONSE_DRAFT_PROMPT.format(subject=subject, body=body)
     result = llm.invoke(prompt)
     return result.content
